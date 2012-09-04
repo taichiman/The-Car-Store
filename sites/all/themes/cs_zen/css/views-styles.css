@@ -1,0 +1,61 @@
+/**
+ * @file
+ * Views Styling
+ */
+
+.views-field-title {
+}
+
+#block-views-top_rated_test-block_1 .content{
+    background-color: #EEE;
+}
+
+.block-views{
+
+}
+
+.view-top-rated-test .view-content {
+}
+
+/*
+css for block of Top cars
+*/
+
+
+.top-rated-test-row {
+    border:1px solid blue;
+    clear: left;
+    font-size: 80%;
+}
+
+.top-rated-test-row .div-image-vote{
+    float: left;
+    margin: 5px;
+    width: 110px;
+}
+
+.top-rated-test-row .div-filds{
+    float: left;
+    margin: 5px;
+    width: 90px;
+    word-wrap: break-word;
+}
+
+.clear{
+    clear:left;
+}
+
+
+.top-rated-test-row .image-row{
+}
+
+.top-rated-test-row .vote-row{
+    align: center;
+}
+
+.top-rated-test-row .field-row{
+    }
+
+.field-row-title{
+    font-weight: bold;
+}

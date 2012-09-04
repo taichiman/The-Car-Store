@@ -1,0 +1,88 @@
+<html>
+<head>
+	<h2>JS test</h2>
+
+	<style type="text/css">
+		.first_div {
+			background-color: red;
+			width: 250px;
+			height: 100px;
+			margin-bottom: 20px;
+		}
+
+		.popup {
+			width: 250px;
+			background-color: blue;
+			visibility: hidden;
+		}
+	</style>
+
+	<link type="text/css" href="js-ui/css/smoothness/jquery-ui-1.8.22.custom.css" rel="Stylesheet" />
+	<!--<script src="jquery-1.7.2.js"></script>-->
+	<script type="text/javascript" src="js-ui/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js-ui/js/jquery-ui-1.8.22.custom.min.js"></script>
+	<script type="text/javascript" src="js-ui/js/jquery.effects.blind.js"></script>
+	<!--<script type="text/javascript" src="js_ui/js/effects.core.js"></script>-->
+
+
+
+</head>
+
+<body style="height: 1200px;" >
+
+<div class="first_div">Description 1</div>
+<div class="first_div">Description 2</div>
+<div class="first_div">Description 3</div>
+
+
+<script>
+
+	$( function () {
+
+		//	<!---->
+
+//		var hidden_div = document.createElement("div");
+//		hidden_div.setAttribute('style', 'background-color: blue; width: 250px; height: 12em; position: fixed;' );
+//		hidden_div.style.left = 250;
+////		hidden_div.style.visibility = 'hidden';
+//		hidden_div.style.visibility = 'visible';
+//		hidden_div.style.color = "white";
+//		hidden_div.innerHTML = "Hello World";
+//
+//		$(hidden_div).attr('id',"popup").appendTo('body');
+
+	$('<div>Hello</div>').addClass('popup').appendTo('body');
+
+	$('.popup').attr({'style':'border:1px solid black'});
+
+	$('.first_div').hover(
+		function(){
+		$('.popup').show('blind');
+		},function(){
+		$('.popup').hide('blind');
+		}
+	);
+//	$('.popup')[0].style.border="1px solid black";
+
+
+//		$('#popup').show();
+
+//		$('.first_div').hover(
+//			function(){
+//				$('popup').show();
+//			})
+
+//			, function(){
+//			$('popup').hide();
+//		});
+
+//	}
+
+
+
+	});
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+.imagecache-node_image_car img {
+  /*outline: 1px solid blue;*/
+}
+
+/**
+*for node car_for_sale
+*/
+
+.body-car_for_sale {
+}
+
+.body-car_for_sale .body-1-car_for_sale,
+.body-car_for_sale .body-2-car_for_sale,
+.body-car_for_sale .body-3-car_for_sale {
+  margin-bottom: 18px;
+  /*background-color: blue;*/
+  /*border: 1px solid #c0c0c0;*/
+}
+
+.body-1-car_for_sale {
+  /*background: #ff8000;*/
+  /*border: 1px solid green;*/
+  margin: 0px;
+}
+
+.body-2-car_for_sale {
+  /*background: red;*/
+  clear: both;
+}
+
+.body-2-car_for_sale p {
+  margin: 0px;
+}
+
+.body-3-car_for_sale {
+  /*background: gray;*/
+}
+
+
+/* 1 */
+
+.body-1-1-car_for_sale {
+  float: left;
+}
+
+.body-1-2-car_for_sale {
+  /*background: #ee82ee;*/
+  /*border: 1px solid #ffc0cb;*/
+  float: left;
+  margin-top: 1.5em;
+  margin-left: 14px;
+  width: 250px;
+}
+
+.body-1-2-car_for_sale .cfs-1-2-1,
+.body-1-2-car_for_sale .cfs-1-2-2 .cfs-1-2-2-n,
+.body-1-2-car_for_sale .cfs-1-2-3 {
+  border: 1px dashed #adff2f;
+  margin-bottom: 10px;
+  /*padding-left: 4px;*/
+  word-wrap: break-word;
+}
+
+.cfs-1-2-1 {
+  /*background: teal;*/
+  /*border: 1px solid #4169e1;*/
+  font-weight: bold;
+}
+
+.cfs-1-2-2 .cfs-1-2-2-n {
+  /*background: #b22222;*/
+ }
+
+.cfs-1-2-3 {
+  float: left;
+  /*background: #008000;*/
+}
+
+
+/* 2 */
+/**/
+.body-2-car_for_sale {
+  padding: 6px;
+}
+
+.body-2-car_for_sale .body-2-car_for_sale-label {
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.body-2-car_for_sale .body-2-car_for_sale-text {
+  border: 1px solid blue;
+  padding: 10px;
+}
+/**/
+
+
+
+/* 3 */
+/**/
+.body-3-car_for_sale {
+  height: 2em;
+  text-align: center;
+}
+
+.body-3-car_for_sale .body-3-car_for_sale-button {
+  float: left;
+  font-weight: bold;
+  width: 50%;
+}
+
+.body-3-car_for_sale .body-3-car_for_sale-button-button {
+  font-weight: bold;
+}
+
+.body-3-car_for_sale .body-3-car_for_sale-price {
+  float: left;
+  width: 30%;
+}
+/**
+*node car_for_sale
+*/
+
+#contactus-form {
+  background-color: #99FFCC;
+}
+
+
+/**
+*jQuery Tools Tooltip
+*/
+
+.tooltip {
+  /*background-color: #8a2be2;*/
+  background-image: url('../images/jQtools tooltip/white.png');
+  display: none;
+  height: 109px;
+  /*outline: 1px solid pink;*/
+  : 10px;
+  width: 209px;
+  z-index: 100;
+}
+
+.top_rated_tooltip_text{
+  padding: 15px;
+  font-size: 0.8em;
+}
+
+
+/**
+*buttons 'All..'. show all body text.
+*/
+.button_show_all_body{
+  float: right;
+  position: relative;
+  top:-3px;
+  margin-right: 0px;
+}
+
+
+/*
+*Correct bold font input blockquote Last Offers
+*/
+
+
+#block-views-last_offers-block_1 .views-field-title {
+  font-weight:normal;
+  text-align: left;
+  width: 100%;
+}

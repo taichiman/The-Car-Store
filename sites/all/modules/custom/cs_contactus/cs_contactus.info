@@ -1,0 +1,3 @@
+name = cs_Contact US
+description = Module for form "Contact us"
+core = 6.x

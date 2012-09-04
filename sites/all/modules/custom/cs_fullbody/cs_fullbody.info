@@ -1,0 +1,3 @@
+name = cs_FullBody
+description = AJAX responce with full bode of node
+core = 6.x

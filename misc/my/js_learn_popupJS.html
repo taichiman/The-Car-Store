@@ -1,0 +1,78 @@
+<html>
+<head>
+	<h2>JS test</h2>
+
+	<style type="text/css">
+		.first_div {
+			background-color: red;
+			width: 250px;
+			height: 100px;
+			margin-bottom: 20px;
+		}
+	</style>
+
+	<script src="jquery-1.7.2.js"></script>
+
+</head>
+<body style="height: 1200px;" >
+<div class="first_div">Description 1</div>
+<div class="first_div">Description 2</div>
+<div class="first_div">Description 3</div>
+
+
+<script>
+
+	var hidden_div = document.createElement("div");
+
+	//	div.style.width = "250px;";
+
+	//	div.setAttribute('style', 'width: 350px;');
+	hidden_div.setAttribute('style', 'background-color: blue; width: 250px; height: 12em; position: fixed; ');
+	hidden_div.style.left = 250;
+	hidden_div.style.visibility = 'hidden'
+	hidden_div.style.color = "white";
+
+	hidden_div.innerHTML = "Hello World";
+
+	document.body.appendChild(hidden_div);
+
+	//	<!---->
+
+
+	target = document.getElementsByClassName('first_div');
+
+
+	for ( key in target ) {
+		target[key].onmousemove = function (event) {
+			if ( hidden_div.style.visibility!='visible' ){
+				var y = event.clientY;
+
+				Ywindow = (window.innerHeight+(0.1*hidden_div.clientHeight));
+				Y_Yelement= ( y+ hidden_div.clientHeight);
+
+				if  ( Ywindow< Y_Yelement  ) {
+					y=Ywindow - (0.8*hidden_div.clientHeight);
+				}
+<!---->
+
+				text = this.innerText;
+
+				//hidden_div.setAttribute('style', "background-color:blue; width: 150px; height: 2em; display: block; position: absolute; top: " + y + "px; left: " + x + "px;");
+
+				hidden_div.style.visibility = 'visible';
+				hidden_div.style.top = y;
+				hidden_div.childNodes[0].nodeValue = text+" "+y;
+			}
+		};
+
+
+		target[key].onmouseout = function () {
+//		hidden_div.setAttribute('style', 'background-color:blue; width: 150px; height: 2em; display: none; ');
+			hidden_div.style.visibility = 'hidden';
+		};
+
+	}
+
+</script>
+</body>
+</html>

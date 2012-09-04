@@ -1,0 +1,382 @@
+<?php
+
+/**
+ * This function defines the URL to the page created etc.
+ * See http://api.drupal.org/api/function/hook_menu/6
+ */
+function cs_contactus_menu()
+{
+  $items = array();
+
+  $items['contact_us'] = array(
+    'title' => 'Contact US',
+    'page callback' => 'cs_contactus_create_form',
+    'access arguments' => array('access content'),
+    'description' => t('My form'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['get_cfs_info/ajax'] = array(
+//    'title' => 'car_for_sale autocomplete',
+    'page callback' => 'get_cfs_info_ajax',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  /**
+   * And finally, let's output it to a hook_menu() implementation
+   * so we can view the output
+   */
+//
+//  $items['my-page'] = array(
+//    'title' => t('My test page'),
+//    'page callback' => 'theme',
+//    'page arguments' => array('my_markup'),
+//    'access arguments' => array('access content'),
+//    'type' => MENU_NORMAL_ITEM,
+//  );
+
+  return $items;
+}
+
+/* Implementation of hook_theme().
+*/
+function cs_contactus_theme()
+{
+  return array(
+    'email_bad_car' => array(
+      'arguments' => array('message' => NULL,
+        'params' => NULL),
+      'template' => 'email_bad_car',
+    ),
+  );
+}
+
+
+//function template_preprocess_email_bad_car(&$vars)
+//{
+//  global $user;
+//  global $message;
+//  $vars['message'] = $vars['message'];
+//}
+
+/**
+ * This function gets called in the browser address bar for:
+ * "http://yourhost/my_module/form" or
+ * "http://yourhost/?q=my_module/form". It will generate
+ * a page with this form on it.
+ */
+function cs_contactus_create_form()
+{
+
+  // This form calls the form builder function via the
+  // drupal_get_form() function which takes the name of this form builder
+  // function as an argument. It returns the results to display the form.
+  return drupal_get_form('contactus_form');
+
+}
+
+/**
+ * This function is called the "form builder". It builds the form.
+ * Notice, it takes one argument, the $form_state
+ */
+function contactus_form($form_state)
+{
+
+  // This is the first form element. It's a textfield with a label, "Name"
+  $form['info'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Name, Mail, Car'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE
+  );
+
+  $form['info']['name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name'),
+    '#required' => 'TRUE',
+    '#default_value' => "Master of puppets",
+    '#description' => 'Please enter your name.',
+    '#size' => 60,
+    '#maxlength' => 80
+  );
+  $form['info']['email'] = array(
+    '#default_value' => "art505@bk.ru",
+    '#type' => 'textfield',
+    '#title' => t('E-Mail'),
+  );
+
+  $form['info']['car'] = array(
+    '#default_value' => "Mers again:3",
+    '#required' => 'TRUE',
+    '#type' => 'textfield',
+    '#title' => 'Car',
+    '#autocomplete_path' => 'get_cfs_info/ajax',
+//    '#autocomplete' => 'on',
+//    '#attributes' => array ( 'autocomplete = ON' ),
+  );
+
+
+  $form['message'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Message'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['message']['message'] = array(
+    '#default_value' => "Car good, bad good photos absent.",
+    '#type' => 'textarea',
+    '#title' => 'Text',
+    '#rows' => 10,
+//    '#autocomplete' => 'on',
+//    '#attributes' => array ( 'autocomplete = ON' ),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Submit'
+  );
+
+
+  return $form;
+}
+
+function contactus_form_validate($form, &$form_state)
+{
+
+}
+
+function contactus_form_submit($form, &$form_state)
+{
+
+  $params['car'] = $form_state['values']['car'];
+  $params['message'] = $form_state['values']['message'];
+  $params['name'] = $form_state['values']['name'];
+  $params['subject'] = 'Message about bad car.';
+
+  //get node url from nid
+  list($text, $node_id) = explode(':', $form_state['values']['car']);
+
+  $path_nid = 'node/' . $node_id;
+
+  $url_absolute = url($path_nid, array('absolute' => 'TRUE'));
+
+  $params['link_to_car'] = l('Link to bad cars', $url_absolute, array('html' => 'TRUE'));
+
+  drupal_mail('cs_contactus', 'bad_car', 'densomart@gmail.com', language_default(), $params, $form_state['values']['email']);
+
+  drupal_set_message('Your email has been sended.');
+  drupal_goto('<front>');
+
+}
+
+//function cs_contactus_bad_car_mail_body_alter(&$message)
+//if
+
+
+
+function cs_contactus_mail_alter(&$message)
+{
+  if ($message['id'] == 'cs_contactus_bad_car') {
+
+    $message['headers']['Bcc'] = 'densomart@gmail.com';
+
+    $message['headers']['MIME-Version'] = '1.0'; // ."\r\n";
+    $message['headers']['Content-Type'] = 'text/html; charset=iso-8859-1'; //. "\r\n";
+
+    $str = "Contactus form send it !";
+
+    $message['body'] .= '<table bgcolor=green><tr><td> </tr>' . addslashes($str) . '</tr></table>';
+
+//  drupal_alter('bad_car_mail_body',$message);
+
+  }
+}
+
+
+function cs_contactus_mail($key, &$message, $params)
+{
+  switch ($key) {
+
+    case 'bad_car':
+      $message['body'] = theme('email_bad_car', $message, $params);
+      $message['subject'] = $params['subject'];
+      break;
+
+    case 'notify_bought_car':
+      $message['body'] = $params['body'];
+      $message['subject'] = $params['subject'];
+      break;
+
+  }
+}
+
+function get_cfs_info_ajax($chars = '')
+{
+
+  $titles = array();
+
+  $result = db_query("SELECT n.nid, n.title FROM {node} n WHERE n.title LIKE '%s%' AND n.type = 'car_for_sale'", $chars);
+
+  while ($data = db_fetch_object($result)) {
+    $titles[$data->title . ':' . $data->nid] = check_plain($data->title);
+  }
+
+  drupal_json($titles);
+
+  die;
+}
+
+//function cs_contactus_theme(){
+//  return array(
+//    'arguments'=>array(),
+//
+//  );
+//
+//}
+
+/*
+*For send notify email to sellers, when order is compleded.
+*/
+
+function cs_ubercart_send_email_to_seller($order) {
+
+//  @todo_den Make latee if will need for many products node select
+  $nid = $order->products['0']->nid;
+//  $node = db_fetch_object(db_query("SELECT uid FROM {node} WHERE nid = '%s'", $nid));
+
+  $user=db_fetch_object(db_query("SELECT * FROM {users} u JOIN {node} n ON u.uid=n.uid WHERE nid = '%d'", $nid));
+
+  $params['subject'] = 'Notification car bought.';
+  $params['body'] ="Hello, $user->name. Your car has saled.";
+
+  drupal_mail('cs_contactus', 'notify_bought_car', $user->mail, language_default(), $params, variable_get('uc_store_email', 'densomart@gmail.com') );
+//  drupal_goto('<front>');
+
+  return ;
+}
+
+
+  /**
+   * Implementation of hook_ca_action().
+   * Add new action, for send notify email to seller
+   */
+
+function cs_contactus_ca_action() {
+  $order_arg = array(
+    '#entity' => 'uc_order',
+    '#title' => t('Order'),
+  );
+
+  $actions['cs_uc_seller_email'] = array(
+    '#title' => t('Send an completed email to seller1'),
+    '#category' => t('Notification'),
+    '#callback' => 'cs_ubercart_send_email_to_seller',
+    '#arguments' => array( 'order' => $order_arg),
+    );
+
+//    '#argument_map' => array(
+//      'order' => 'order',
+//    ),
+//    '#arguments' => array(
+//      '#entity' => 'uc_order',
+//      '#title' => t('Order'),
+//    ),
+//  );
+
+  return $actions;
+}
+
+
+/**
+ * Check the current order status.
+ *
+ * @see uc_order_condition_check_order_status_form()
+ */
+function cs_uc_check_updated_order_status($order, $settings) {
+  // Return TRUE if the order status matches.
+  return $order->order_status == $settings['order_status'];
+}
+
+function cs_contactus_ca_condition() {
+  return array(
+    'cs_uc_order_status_updated_condition' => array(
+      '#title' => t("cs Check status order on 'completed'"),
+      '#category' => t('notifycation'),
+      '#callback' => 'cs_uc_check_updated_order_status',
+      '#arguments' => array(
+        'updated_order' => array('#entity' => 'uc_order', '#title' => t('Order')),
+      ),
+    ),
+  );
+}
+
+
+
+
+function cs_contactus_ca_predicate() {
+  $predicates = array();
+
+  // Setup predicate for seller notifications.
+  $predicates['cs_uc_bought_seller_notification'] = array(
+    '#title' => t('E-mail seller bought notification'),
+    '#description' => t('E-mail the seller.'),
+    '#class' => 'notification',
+    '#status' => 1,
+    '#trigger' => 'uc_order_status_update',
+
+
+    '#conditions' => array(
+      '#operator' => 'AND',
+      '#conditions' => array(
+        array(
+          '#name' => 'cs_uc_order_status_updated_condition',
+          '#title' => t('If the order status is already Completed.'),
+          '#argument_map' => array(
+            'updated_order' => 'updated_order',
+          ),
+          '#settings' => array(
+            'negate' => FALSE,
+            'order_status' => 'completed',
+          ),
+        ),
+      ),
+    ),
+
+
+
+
+    '#actions' => array(
+      array(
+        '#name' => 'cs_uc_seller_email',
+        '#title' => t('Send an e-mail to the seller'),
+        '#argument_map' => array(
+          'order' => 'order',
+        ),
+        '#settings' => array(
+          'order_status' => 'completed',
+        ),
+      ),
+    ),
+  );
+
+  return $predicates;
+}
+
+
+//
+//$triggers['uc_order_status_update'] = array(
+//  '#title' => t('Order status gets updated'),
+//  '#category' => t('Order'),
+//  '#arguments' => array(
+//    'order' => array(
+//      '#entity' => 'uc_order',
+//      '#title' => t('Original order'),
+//    ),
+//    'updated_order' => array(
+//      '#entity' => 'uc_order',
+//      '#title' => t('Updated order'),
+//    ),
+//  ),
+//);

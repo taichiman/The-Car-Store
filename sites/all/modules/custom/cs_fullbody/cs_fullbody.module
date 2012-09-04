@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * This function defines the URL to the page created etc.
+ * See http://api.drupal.org/api/function/hook_menu/6
+ */
+function cs_fullbody_menu() {
+  $items = array();
+
+  $items['node/get/fullbody'] = array(
+    'access arguments' => array('access content'),
+    'page callback' => 'cs_fullbody_get_fullbody_ajax',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+function cs_fullbody_get_fullbody_ajax($nid)
+{
+
+  $fullbody = '';
+
+  $result = db_query("SELECT n_r.body FROM {node} n INNER JOIN {node_revisions} n_r ON n.vid=n_r.vid WHERE n.nid=%d", $nid);
+
+
+  while ($record = db_fetch_object($result)) {
+    $fullbody = $record->body;
+  }
+
+//  error_log($fullbody);
+
+//  kpr($fullbody);
+
+//  die;
+// send with <p>
+//  $body=Array('body'=>$fullbody);
+  drupal_json($fullbody);
+
+  die;
+}
