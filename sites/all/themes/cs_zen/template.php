@@ -292,11 +292,10 @@ function cs_zen_uc_product_add_to_cart($node, $teaser = 0, $page = 0) {
   }
   else {
     // Stock tracking is not being used for this product, just show the add to cart button as normal
-    return theme_uc_product_add_to_cart($node);
+    return theme_uc_product_add_to_cart( $node );
   }
-
 
 
 }
 
-
+//test git work
