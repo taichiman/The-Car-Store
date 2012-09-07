@@ -391,13 +391,19 @@ function uc_payment_get_totals($return = FALSE, $order = NULL) {
 }
 
 function uc_payment_get_details($method_id, $view = 'cart', $order = NULL) {
+
+  global $user;
+
+//@todo_den need delete after kills bag
+//$_SESSION['cart_order']=110;
+
   if ($view == 'cart') {
-    if (!($order = uc_order_load($_SESSION['cart_order']))) {
+    if (empty($_SESSION['cart_order']) || !($order = uc_order_load($_SESSION['cart_order']))) {
       $_SESSION['cart_order'] = NULL;
       $order = NULL;
     }
 
-    if ($order->order_status != 0 || ($user->uid && $user->uid != $order->uid)) {
+    if (!empty($order->order_status) || (!empty($user->uid) && !empty($order->uid) && $user->uid != $order->uid)) {
       $order = NULL;
     }
   }

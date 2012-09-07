@@ -282,8 +282,8 @@ function cs_zen_uc_product_add_to_cart($node, $teaser = 0, $page = 0) {
 
 //    @todo_den закомментированно для теста отправки писем при покупке
 
-    if ($stocklevel <= 0) {
-//    if ($stocklevel > 100500) {
+//    if ($stocklevel <= 0) {
+    if ($stocklevel > 100500) {
       return '<div class="add-to-cart out-of-stock">' . t('Out of stock') . '</div>';
     }
     else {
