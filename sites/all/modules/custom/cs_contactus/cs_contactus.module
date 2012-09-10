@@ -251,7 +251,7 @@ function cs_ubercart_send_email_to_seller($order) {
   $params['subject'] = 'Notification car bought.';
   $params['body'] ="Hello, $user->name. Your car has saled.";
 
-  drupal_mail('cs_contactus', 'notify_bought_car', $user->mail, language_default(), $params, variable_get('uc_store_email', 'densomart@gmail.com') );
+  drupal_mail('cs_contactus', 'notify_bought_car', $user->mail, language_default(), $params, variable_get('uc_store_email','') );
 //  drupal_goto('<front>');
 
   return ;

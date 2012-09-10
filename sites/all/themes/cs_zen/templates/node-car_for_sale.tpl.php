@@ -105,9 +105,13 @@
     <!--Description -->
     <div class="body-2-car_for_sale">
       <div class="body-2-car_for_sale-label">Description:</div>
-      <div class="body-2-car_for_sale-text"><?php print node_teaser($node->content['body']['#value'], '', 700); ?></div>
+      <div class="body-2-car_for_sale-text">
+<!--        --><?php //print node_teaser($node->content['body']['#value'], '', 700); ?>
+        <?php print $cs_node_teaser; ?>
+      </div>
       <div>
-        <button id=<?php print $node->nid;?> class="button_show_all_body">All..</button></div>
+        <button id=<?php print $node->nid;?> class="button_show_all_body">All..</button>
+      </div>
     </div>
 
     <!--    Button-->
