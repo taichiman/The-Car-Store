@@ -64,8 +64,8 @@
 /**
  * Implementation of HOOK_theme().
  */
-function cs_zen_theme(&$existing, $type, $theme, $path) {
-  $hooks = zen_theme($existing, $type, $theme, $path);
+function cs_zen_theme( &$existing, $type, $theme, $path ) {
+  $hooks = zen_theme( $existing, $type, $theme, $path );
   // Add your theme hooks like this:
   /*
   $hooks['hook_name_here'] = array( // Details go here );
@@ -78,10 +78,10 @@ function cs_zen_theme(&$existing, $type, $theme, $path) {
 /**
  * Implementation of template_preprocess_page().
  */
-function cs_zen_preprocess_page(&$variables) {
+function cs_zen_preprocess_page( &$variables ) {
 
- if ((array_key_exists('node', $variables))&&($variables['node']->type == 'car_for_sale')) {
-    $variables['title'] = '';
+  if ( ( array_key_exists( 'node', $variables ) ) && ( $variables[ 'node' ]->type == 'car_for_sale' ) ) {
+    $variables[ 'title' ] = '';
   }
 }
 
@@ -135,14 +135,19 @@ function cs_zen_preprocess_page(&$vars, $hook) {
  *   The name of the template being rendered ("node" in this case.)
  */
 
-function cs_zen_preprocess_node(&$vars, $hook) {
+function cs_zen_preprocess_node( &$vars, $hook ) {
 
-  switch ($vars['node']->type) {
+  switch ( $vars[ 'node' ]->type ) {
     case 'car_for_sale':
-      $vars['cs_node_teaser'] ='Vau';
-    break;
+      $body = $vars[ 'node' ]->content[ 'body' ][ '#value' ];
+      $teaser = node_teaser( $body, isset( $vars[ 'node' ]->format ) ? $vars[ 'node' ]->format : NULL, 50 );
+      if ( strlen( $body ) < 50 /*variable_get( 'teaser_length', 600 )*/ ) {
+        $vars[ 'cs_node_teaser' ] = $teaser;
+      } else {
+        $vars[ 'cs_node_teaser' ] = $teaser . '</div>';
+      }
+      break;
   }
-
 
 
 //  // Optionally, run node-type-specific preprocess functions, like
@@ -152,6 +157,7 @@ function cs_zen_preprocess_node(&$vars, $hook) {
 //    $function($vars, $hook);
 //  }
 }
+
 // */
 
 /**
@@ -181,9 +187,6 @@ function cs_zen_preprocess_block(&$vars, $hook) {
   $vars['sample_variable'] = t('Lorem ipsum.');
 }
 // */
-
-
-
 
 
 ///**
@@ -254,7 +257,6 @@ function cs_zen_preprocess_block(&$vars, $hook) {
 //}
 
 
-
 //test theme_hooks
 //
 //function cs_zen_my_markup() {
@@ -264,14 +266,13 @@ function cs_zen_preprocess_block(&$vars, $hook) {
 //}
 
 
-
 function cs_show_button_add_to_cart( $node ) {
   $output = '<div class="add-to-cart">';
-  if ($node->nid) {
-    $output .= drupal_get_form('uc_product_add_to_cart_form_'. $node->nid, $node);
+  if ( $node->nid ) {
+    $output .= drupal_get_form( 'uc_product_add_to_cart_form_' . $node->nid, $node );
   }
   else {
-    $output .= drupal_get_form('uc_product_add_to_cart_form', $node);
+    $output .= drupal_get_form( 'uc_product_add_to_cart_form', $node );
   }
   $output .= '</div>';
   return $output;
@@ -280,24 +281,22 @@ function cs_show_button_add_to_cart( $node ) {
 
 //For stock level set to 1 for new product
 
-function cs_zen_uc_product_add_to_cart($node, $teaser = 0, $page = 0) {
+function cs_zen_uc_product_add_to_cart( $node, $teaser = 0, $page = 0 ) {
 
-  $stocklevel = uc_stock_level($node->model);
+  $stocklevel = uc_stock_level( $node->model );
 
-  if (is_numeric($stocklevel)) {
+  if ( is_numeric( $stocklevel ) ) {
     // Stock tracking is active
 
 //    @todo_den закомментированно для теста отправки писем при покупке
 
 //    if ($stocklevel <= 0) {
-    if ($stocklevel > 100500) {
-      return '<div class="add-to-cart out-of-stock">' . t('Out of stock') . '</div>';
+    if ( $stocklevel > 100500 ) {
+      return '<div class="add-to-cart out-of-stock">' . t( 'Out of stock' ) . '</div>';
+    } else {
+      return cs_show_button_add_to_cart( $node );
     }
-    else {
-      return cs_show_button_add_to_cart($node);
-    }
-  }
-  else {
+  } else {
     // Stock tracking is not being used for this product, just show the add to cart button as normal
     return theme_uc_product_add_to_cart( $node );
   }
@@ -322,7 +321,7 @@ function cs_zen_uc_product_add_to_cart($node, $teaser = 0, $page = 0) {
 //function truncate_teaser($text, $length = 100, $ending = '...', $exact = false, $considerHtml = true) {
 //	if ($considerHtml) {
 //    // if the plain text is shorter than the maximum length, return the whole text
-//    if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
+/* //    if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
 //      return $text;
 //    }
 //    // splits all html-tags to scanable lines
@@ -408,3 +407,5 @@ function cs_zen_uc_product_add_to_cart($node, $teaser = 0, $page = 0) {
 //  }
 //	return $truncate;
 //}
+
+*/
