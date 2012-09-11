@@ -80,8 +80,8 @@ function cs_zen_theme( &$existing, $type, $theme, $path ) {
  */
 function cs_zen_preprocess_page( &$variables ) {
 
-  if ( ( array_key_exists( 'node', $variables ) ) && ( $variables[ 'node' ]->type == 'car_for_sale' ) ) {
-    $variables[ 'title' ] = '';
+  if ( ( array_key_exists( 'node', $variables ) ) && ( $variables['node']->type == 'car_for_sale' ) ) {
+    $variables['title'] = '';
   }
 }
 
@@ -137,25 +137,13 @@ function cs_zen_preprocess_page(&$vars, $hook) {
 
 function cs_zen_preprocess_node( &$vars, $hook ) {
 
-  switch ( $vars[ 'node' ]->type ) {
+  switch ( $vars['node']->type ) {
     case 'car_for_sale':
-      $body = $vars[ 'node' ]->content[ 'body' ][ '#value' ];
-      $teaser = node_teaser( $body, isset( $vars[ 'node' ]->format ) ? $vars[ 'node' ]->format : NULL, 50 );
-      if ( strlen( $body ) < 50 /*variable_get( 'teaser_length', 600 )*/ ) {
-        $vars[ 'cs_node_teaser' ] = $teaser;
-      } else {
-        $vars[ 'cs_node_teaser' ] = $teaser . '</div>';
-      }
-      break;
+      $teaser = db_fetch_object( db_query( "SELECT teaser FROM node_revisions WHERE vid = '%d'", $vars['node']->vid ) )->teaser;
+      $vars['cs_node_teaser'] = $teaser."\n";
+    break;
   }
 
-
-//  // Optionally, run node-type-specific preprocess functions, like
-//  // cs_zen_preprocess_node_page() or cs_zen_preprocess_node_story().
-//  $function = __FUNCTION__ . '_' . $vars['node']->type;
-//  if (function_exists($function)) {
-//    $function($vars, $hook);
-//  }
 }
 
 // */
@@ -270,8 +258,7 @@ function cs_show_button_add_to_cart( $node ) {
   $output = '<div class="add-to-cart">';
   if ( $node->nid ) {
     $output .= drupal_get_form( 'uc_product_add_to_cart_form_' . $node->nid, $node );
-  }
-  else {
+  } else {
     $output .= drupal_get_form( 'uc_product_add_to_cart_form', $node );
   }
   $output .= '</div>';
