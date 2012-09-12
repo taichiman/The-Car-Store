@@ -106,7 +106,6 @@
     <div class="body-2-car_for_sale">
       <div class="body-2-car_for_sale-label">Description:</div>
       <div class="body-2-car_for_sale-text">
-<!--        --><?php //print node_teaser($node->content['body']['#value'], '', 700); ?>
         <?php print $cs_node_teaser; ?>
       </div>
       <div>

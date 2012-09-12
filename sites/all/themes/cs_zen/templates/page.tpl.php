@@ -116,22 +116,16 @@
   <?php print $styles; ?>
   <?php print $scripts; ?>
 
-<!--@todo_den Delete carousel-->
-    <script type="text/javascript">
-//        jQuery(document).ready(function() {
-//            jQuery('#mycarousel').jcarousel({
-//                scroll : 1,
-//                visible : 1
-//            });
-//        });
+  <!--@todo_den Delete carousel-->
+  <script type="text/javascript">
+    Drupal.behaviors.jcarousel = function (context) {
+      jQuery('#mycarousel').jcarousel({
+        scroll:1,
+        visible:1
+      });
+    }
+  </script>
 
-//  Drupal.behaviors.jcarousel = function(context){
-//    jQuery('#mycarousel').jcarousel({
-//      scroll : 1,
-//      visible : 1
-//    });
-//  }
-    </script>
 </head>
 <body class="<?php print $classes; ?>">
 

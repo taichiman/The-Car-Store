@@ -115,17 +115,6 @@
   <?php print $head; ?>
   <?php print $styles; ?>
   <?php print $scripts; ?>
-
-<!--  @todo_den Delete carusel-->
-<!--    <script type="text/javascript">-->
-<!---->
-<!--  Drupal.behaviors.jcarousel = function(context){-->
-<!--    jQuery('#mycarousel').jcarousel({-->
-<!--      scroll : 0,-->
-<!--      visible : 1-->
-<!--    });-->
-<!--  }-->
-<!--    </script>-->
 </head>
 <body class="<?php print $classes; ?>">
 

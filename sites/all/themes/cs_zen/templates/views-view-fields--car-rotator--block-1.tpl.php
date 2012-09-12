@@ -27,9 +27,9 @@
         <?php print $fields['field_year_value']->content; ?>
     </div>
 <!--@todo_den вывести цену-->
-  <!--    <div class="views-field---><?php //print $fields['field_price_value']->class; ?><!--">-->
-<!--        --><?php //print $fields['field_price_value']->content; ?>
-<!--    </div>-->
+    <div class="views-field-<?php print $fields['sell_price']->class; ?>">
+        <?php print $fields['sell_price']->content; ?>
+    </div>
     <div class="views-field-<?php print $fields['title']->class; ?>">
         <?php print $fields['title']->content; ?>
     </div>
