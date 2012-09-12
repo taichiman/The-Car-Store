@@ -26,10 +26,11 @@
     <div class="views-field-<?php print $fields['field_year_value']->class; ?> ">
         <?php print $fields['field_year_value']->content; ?>
     </div>
-<!--@todo_den вывести цену-->
-    <div class="views-field-<?php print $fields['sell_price']->class; ?>">
+
+    <?php print '<div class=views-field-field-price-value>' ?>
         <?php print $fields['sell_price']->content; ?>
     </div>
+
     <div class="views-field-<?php print $fields['title']->class; ?>">
         <?php print $fields['title']->content; ?>
     </div>
