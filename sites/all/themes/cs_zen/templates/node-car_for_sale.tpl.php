@@ -128,10 +128,20 @@
       </div>
     </div>
     <!--Gmap-->
-    <div class=cs_gmap >
-      <?php $output_gmap=gmap_location_block_view($node->nid);
-        if ( isset( $output_gmap['content'] )) print( $output_gmap['content']);
-      ?>
+
+    <div class="cs_gmap">
+      <div class="cs_location" >
+        <?php
+        if ( isset( $node->content['locations']['#value'] ) && $node->content['locations']['#value'] )
+          print $node->content['locations']['#value'];
+        ?>
+      </div>
+
+      <div class=cs_map >
+        <?php $output_gmap=gmap_location_block_view($node->nid);
+          if ( !isset( $output_gmap['content'] )) print( $output_gmap['content']);
+        ?>
+      </div>
     </div>
   </div>
 </div><!-- /.node -->

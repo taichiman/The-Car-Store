@@ -36,7 +36,6 @@
   /*background: gray;*/
 }
 
-
 /* 1 */
 
 .body-1-1-car_for_sale {
@@ -69,13 +68,12 @@
 
 .cfs-1-2-2 .cfs-1-2-2-n {
   /*background: #b22222;*/
- }
+}
 
 .cfs-1-2-3 {
   float: left;
   /*background: #008000;*/
 }
-
 
 /* 2 */
 /**/
@@ -92,9 +90,8 @@
   border: 1px solid blue;
   padding: 10px;
 }
+
 /**/
-
-
 
 /* 3 */
 /**/
@@ -117,6 +114,7 @@
   float: left;
   width: 30%;
 }
+
 /**
 *node car_for_sale
 */
@@ -124,7 +122,6 @@
 #contactus-form {
   background-color: #99FFCC;
 }
-
 
 /**
 *jQuery Tools Tooltip
@@ -136,35 +133,56 @@
   display: none;
   height: 109px;
   /*outline: 1px solid pink;*/
-  : 10px;
+/*: 10 px;*/
   width: 209px;
   z-index: 100;
 }
 
-.top_rated_tooltip_text{
+.top_rated_tooltip_text {
   padding: 15px;
   font-size: 0.8em;
 }
 
-
 /**
 *buttons 'All..'. show all body text.
 */
-.button_show_all_body{
+.button_show_all_body {
   float: right;
   position: relative;
-  top:-3px;
+  top: -3px;
   margin-right: 0px;
 }
-
 
 /*
 *Correct bold font input blockquote Last Offers
 */
 
-
 #block-views-last_offers-block_1 .views-field-title {
-  font-weight:normal;
+  font-weight: normal;
   text-align: left;
   width: 100%;
+}
+
+/*
+*Theme Location on the node Car_for_sale
+*/
+
+#cs_location_car {
+  background-color: #00BFFF;
+}
+
+.cs_location_car_field_dash {
+  border: 1px dashed #adff2f;
+  margin: 10px;
+  padding: 4px;
+  word-wrap: break-word;
+  display: inline-block;
+}
+
+#cs_location_car .cs_location_label_name {
+  font-weight: bold;
+}
+
+#cs_location_car .cs_location_value_name {
+  color: #00008b;
 }
