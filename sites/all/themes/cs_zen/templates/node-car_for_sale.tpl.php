@@ -137,10 +137,13 @@
         ?>
       </div>
 
-      <div class=cs_map >
-        <?php $output_gmap=gmap_location_block_view($node->nid);
-          if ( !isset( $output_gmap['content'] )) print( $output_gmap['content']);
-        ?>
+      <div class="cs_map" >
+        <?php print gmap_simple_map($node->location['latitude'], $node->location['longitude'],'', $node->location['city'].' '.$node->location['street'],3,'default','default',TRUE) ; ?>
+
+<!--        --><?php //print gmap_location_node_page($node->nid) ; ?>
+<!--        --><?php //$output_gmap=gmap_location_block_view($node->nid);
+//          if ( !isset( $output_gmap['content'] )) print( $output_gmap['content']);
+//        ?>
       </div>
     </div>
   </div>
